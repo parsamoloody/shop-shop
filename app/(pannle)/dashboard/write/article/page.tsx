@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense } from 'react'
-import Page from './PageContent'
+import Page from './pageContent'
 
 export default function Wrapper() {
   return (
