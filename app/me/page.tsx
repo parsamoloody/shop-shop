@@ -1,6 +1,6 @@
 'use client'
 
-import userPlaceHolder from '../../../../public/assets/images/Portrait_Placeholder.png'
+import userPlaceHolder from "@/images/Portrait_Placeholder.png"
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -17,7 +17,6 @@ export default function DashboardPage() {
   const router = useRouter()
   console.log(data)
 
-  // Fetch user info on page load
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -27,14 +26,12 @@ export default function DashboardPage() {
         })
 
         if (!response.ok) {
-          router.push('/auth/login')
-          return
+          throw new Error('["/me"] Error on response data')
         }
         const userData = await response.json()
         setData(userData.user)
       } catch (error) {
         console.error('Error fetching user:', error)
-        router.push('/auth/login')
       }
     }
 
