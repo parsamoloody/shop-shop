@@ -29,7 +29,7 @@ export default function SignupPage() {
       return
     }
     if (r.ok) {
-      router.push("/dashboard/user")
+      router.push("/me")
     }
     console.log("r", r)
   };

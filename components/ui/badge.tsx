@@ -10,7 +10,7 @@ const badgeVariants = cva(
       variant: {
         default:
           "bg-secondary text-[#FAFAFA] flex justify-center items-center overflow-hidden p-0 w-5",
-        onValue: "bg-secondary text-[#FAFAFA] flex justify-center items-center overflow-hidden p-0 w-5 absolute -left-3 -mt-2",
+        onValue: "bg-secondary text-[#FAFAFA] flex justify-center items-center border-none overflow-hidden p-0 w-5 absolute -left-3 -mt-2",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:

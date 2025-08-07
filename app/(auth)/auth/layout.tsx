@@ -8,6 +8,7 @@ export default function AuthLayout({
   return (
     <html lang="en">
       <body
+      className="dark:bg-background bg-foreground"
       >
         {children}
       </body>

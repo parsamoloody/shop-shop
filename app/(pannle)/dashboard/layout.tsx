@@ -11,7 +11,7 @@ export default function DashboardLayout({
       <body
       >
         <section className="">
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
         </section>
       </body>

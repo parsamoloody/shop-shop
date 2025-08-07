@@ -27,7 +27,7 @@ export default function LoginPage() {
         return;
       }
      if (res.ok) {
-       router.push("/dashboard/user");
+       router.push("/me");
      }
     } catch (err) {
       console.error('Login error:', err);
