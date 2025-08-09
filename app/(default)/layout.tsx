@@ -10,10 +10,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="dark:bg-background "
+        className="dark:bg-background w-full"
       >
         <Suspense fallback={<h2>Loading...</h2>}>
           <Header />
+          <div className='border-b-[0.5px] border-border-slate-500 dark:border-gray-500'></div>
         </Suspense>
         {children}
       </body>

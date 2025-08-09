@@ -3,9 +3,9 @@ import React from 'react'
 
 const HeroSlider = () => {
   return (
-    <div>
-      <Slider />
-    </div>
+      <div className='overflow-hidden'>
+        <Slider />
+      </div>
   )
 }
 

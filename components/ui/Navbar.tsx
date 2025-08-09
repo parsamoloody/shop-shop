@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import Link from 'next/link';
-import { PiHeartStraightLight } from 'react-icons/pi';
 import { ShortProfile } from './shortProfile';
 import { cn } from '@/lib/utilities/ctx';
 

@@ -9,7 +9,7 @@ import { IoIosLogOut } from "react-icons/io";
 import Link from "next/link";
 
 const shortProfileVariants = cva(
-  "inline-flex items-center text-white dark:border-none dark:bg-gray-900 dark:bg-transparent border border-gray-400 lg:border-none p-2 rounded-lg flex items-center text-xs font-semibold",
+  "inline-flex items-center text-white dark:border-none dark:bg-gray-900 dark:bg-transparent border border-gray-400 md:border-none p-2 rounded-lg flex items-center text-xs font-semibold",
   {
     variants: {
       variant: {

@@ -34,7 +34,7 @@ const Header = () => {
 
 
   return (
-    <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 items-center space-y-3 lg:space-y-0 lg:h-28 h-30 md:h-36 max-w-[1240px] mx-auto px-4 dark:bg-background text-white border-b-[1px] border-slate-500 py-4">
+    <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 items-center space-y-3 lg:space-y-0 lg:h-28 h-30 md:h-36 max-w-[1240px] mx-auto px-4 dark:bg-background text-white py-4">
       <div className='flex justify-between items-center w-full'>
         <h1 className="w-full text-3xl font-bold text-foreground dark:text-foreground uppercase">Exclusive.</h1>
 

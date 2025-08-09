@@ -19,5 +19,11 @@ interface IProductDocument {
     createdAt: Date;
     updatedAt: Date;
 }
+type StaticImage = {
+    src: string;
+    height: number;
+    width: number;
+    blurDataURL?: string;
+};
 
-export default IProductDocument
+export { IProductDocument, StaticImage }

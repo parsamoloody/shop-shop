@@ -16,12 +16,12 @@ const categories = [
 
 const Aside = () => {
     return (
-        <div className='w-auto border-r hidden lg:block'>
-            <ul className='space-y-4'>
+        <div className=' px-4 hidden md:block md:w-52'>
+            <ul className='leading-10 dark:text-foreground w-full'>
                 {
                     categories.map((a, i) => (
                         <Link
-                        key={i}
+                            key={i}
                             href={`/category/${a.name}`}
                         >
                             <li>{a.name}</li>

@@ -2,13 +2,13 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import slide1 from '@/images/frame-1.jpg'
+import slide1 from '@/images/frame-1.jpg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import { JSX, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function StyledSwiper(): JSX.Element {
     const handleSlideChange = useCallback(() => {
@@ -19,30 +19,67 @@ function StyledSwiper(): JSX.Element {
         console.log(swiper);
     }, []);
 
+    // Array of slide data (you can replace with your actual images)
+    const slides = [
+        { id: 1, image: slide1, alt: 'Image 1' },
+        { id: 2, image: slide1, alt: 'Image 2' },
+        { id: 3, image: slide1, alt: 'Image 3' },
+    ];
+
     return (
-        <div className="w-full max-w-6xl mx-auto px-4 ">
+        <div className="">
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={20}
                 slidesPerView={1}
-                breakpoints={{
-                    640: { slidesPerView: 1 }
+                // navigation
+                
+                
+                pagination={{
+                    clickable: true,
+                    dynamicBullets: true // Better for mobile
                 }}
-                navigation
-                pagination={{ clickable: true }}
                 onSlideChange={handleSlideChange}
                 onSwiper={handleSwiperInit}
-                className=""
+                className="h-full w-full"
+                // Responsive settings
+                breakpoints={{
+                    // When window width is >= 320px
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    // When window width is >= 640px
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    // When window width is >= 1024px
+                    1024: {
+                        slidesPerView: 1,
+                        spaceBetween: 30
+                    }
+                }}
             >
-                {['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'].map((text, index) => (
-                    <SwiperSlide key={index}>
-                        <div className=" flex items-center justify-center bg-blue-500 text-white text-xl font-semibold">
-                            {/* {text} */}
+                {slides.map((slide) => (
+                    <SwiperSlide key={slide.id}>
+                        <div className="relative h-64 sm:h-80 md:h-96  w-full">
                             <Image
-                                alt='img'
-                                src={slide1}
-                                className='object-cover object-center'
+                                alt={slide.alt}
+                                src={slide.image}
+                                fill
+                                className="object-cover object-center"
+                                sizes="(max-width: 640px) 100vw, (max-width: 640px) 100vw, 100vw"
+                                priority={slide.id === 1}
                             />
+                        </div>
+                        <div
+                            className='absolute text-white w-56 lg:w-1/2 p-3 md:px-4 sm:px-3 lg:px-5 sm:w-60 md:w-72 left-2.5 top-0 sm:space-y-12 space-y-8 h-full flex-col  items-center'>
+                            <h2 className='mt-20 tracking-wide text-3xl sm:text-4xl md:text-5xl md:leading-14 lg:leading-15 leading-9.5 font-semibold'>{"Up to 10% off Voucher"}</h2>
+                            <Link
+                                className='underline '
+                                href={"/"}
+                            >Shop now</Link>
                         </div>
                     </SwiperSlide>
                 ))}
