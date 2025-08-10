@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utilities/ctx"
+ import { cn } from "@/lib/utilities/ctx"
 import { cva, type VariantProps } from "class-variance-authority"
 import * as React from "react"
 
 const buttonVariants = cva(
-  "flex justify-center items-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+  "flex justify-center items-center font-medium transition-colors focus:outline-none cursor-pointer disabled:opacity-50 disabled:pointer-events-none",
   {
     variants: {
       variant: {

@@ -25,5 +25,17 @@ type StaticImage = {
     width: number;
     blurDataURL?: string;
 };
+interface ProductCardProps {
+  imageUrl: StaticImage
+  title: string
+  size: number
+  rating: number
+  price: number
+  discountPrice?: number
+  isDiscount?: boolean
+  onAddToCart?: () => void
+  onAddToFavorite?: () => void
+}
 
-export { IProductDocument, StaticImage }
+
+export { IProductDocument, StaticImage,ProductCardProps }

@@ -1,54 +1,12 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
-import pimg from '@/images/products/sam-moghadam-khamseh-kvmdsTrGOBM-unsplash 1.jpg'
-import { StaticImage } from '@/types/type'
+import { ProductCardProps } from '@/types/type'
+import useWindowWidthAndHeight from '@/utilities/customHook'
 
-interface ProductCardProps {
-  imageUrl: StaticImage
-  title: string
-  rating: number
-  price: number
-  discountPrice?: number
-  isDiscount?: boolean
-  onAddToCart?: () => void
-  onAddToFavorite?: () => void
-}
-
-export const products: ProductCardProps[] = [
-  {
-    imageUrl: pimg,
-    title: "S-Series Comfort Chair",
-    rating: 4.32,
-    price: 1160,
-    discountPrice: 375,
-    isDiscount: true,
-  },
-  {
-    imageUrl: pimg,
-    title: "Ergo Pro Office Chair",
-    rating: 4.8,
-    price: 980,
-    isDiscount: false,
-  },
-  {
-    imageUrl: pimg,
-    title: "Modern Lounge Sofa",
-    rating: 4.55,
-    price: 1600,
-    discountPrice: 1400,
-    isDiscount: true,
-  },
-  {
-    imageUrl: pimg,
-    title: "Minimalist Wooden Desk",
-    rating: 4.2,
-    price: 450,
-    isDiscount: false,
-  },
-]
-
-const ProductGrid = () => {
+const ProductGrid = ({products}: {products: ProductCardProps[]}) => {
+  const [width, height] = useWindowWidthAndHeight();
+  const [size, setSize] = useState(40)
   const addToFavorite = () => {
     console.log("Added to favorite")
   }
@@ -56,15 +14,25 @@ const ProductGrid = () => {
   const addToCart = () => {
     console.log("Added to cart")
   }
+  useEffect(() => {
+    if (width < 690){
+      setSize(40)
+    } else {
+      setSize(48)
+    }
+  })
 
 return (
-  <div className="grid gap-6 p-4 max-w-screen-xl mx-auto grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
+  // <div className="grid max-w-screen-xl space-x-1 mx-auto grid-cols-[repeat(auto-fit,minmax(178px,1fr))]">
+    <div className="grid max-w-screen-xl sm:gap-2 mx-auto grid-cols-[repeat(auto-fit,minmax(162px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(190px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(182px,1fr))]">
+
     {products.map((product, i) => (
     <div
     key={i}
     className='mx-auto max-w-xs'
     >
       <ProductCard
+      size={size}
         imageUrl={product.imageUrl}
         title={product.title}
         rating={product.rating}

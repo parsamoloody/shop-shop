@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 
-export const useWindowWidthAndHeight = ()=>{
+ const useWindowWidthAndHeight = ()=>{
     // 1- Get the size of window 
 
     // 2- Define the state variable windowSize and pass windowInnerSize as its initial value
@@ -22,3 +22,4 @@ export const useWindowWidthAndHeight = ()=>{
     // 5- return the window size
     return windowSize;
 }
+export default useWindowWidthAndHeight

@@ -1,20 +1,9 @@
 "use client";
 
-import { StaticImage } from "@/types/type";
+import { ProductCardProps, StaticImage } from "@/types/type";
 import Image from "next/image";
 import React, { memo } from "react";
 import { PiHeartStraightLight } from "react-icons/pi";
-
-interface ProductCardProps {
-  imageUrl: StaticImage;
-  title: string;
-  rating: number;
-  price: number;
-  discountPrice?: number;
-  isDiscount?: boolean;
-  onAddToCart?: () => void;
-  onAddToFavorite?: () => void;
-}
 
 const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl,
@@ -25,9 +14,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isDiscount = false,
   onAddToCart,
   onAddToFavorite,
+  size=48
 }) => {
+
   return (
-    <div className="w-48 group relative overflow-hidden">
+    <div className={`w-${size} group relative overflow-clip`}>
       {/* Image Container */}
       <div className="relative w-full h-48 overflow-hidden">
         <Image
@@ -58,7 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-2">
+      <div className="p-2 w-full overflow-hidden"> 
         <h3 className="text-sm font-medium dark:text-white truncate">{title}</h3>
         <div className="flex items-center space-x-1 mt-1">
           <span className="text-yellow-500">★</span>
@@ -67,13 +58,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-1">
           {isDiscount && discountPrice ? (
             <>
-              <span className="text-primary dark:text-foreground font-bold">${discountPrice}</span>
+              <span className="text-secondary dark:text-secondary font-bold">${discountPrice}</span>
               <span className="text-gray-400 text-xs line-through ml-2">
                 ${price}
               </span>
             </>
           ) : (
-            <span className="text-primary font-bold">${price}</span>
+            <span className="text-secondary dark:text-secondary font-bold">${price}</span>
           )}
         </div>
       </div>
