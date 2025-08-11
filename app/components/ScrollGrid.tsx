@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ProductCardProps } from "@/types/type";
 import ProductCard from "./ProductCard";
+import Link from "next/link";
 
 
 const ScrollGrid = ({ data }: { data: ProductCardProps[] }) => {
@@ -41,6 +42,11 @@ const ScrollGrid = ({ data }: { data: ProductCardProps[] }) => {
     }
   }, [width]);
 
+  if (typeof window === 'undefined') return null // avoid SSR errors
+
+  const domain = window.location.origin // e.g. https://example.com
+  const targetUrl = `${domain}/product/`
+
   return (
     <div className="story_container my-4 px-2 lg:px-6">
       <Swiper spaceBetween={2}
@@ -50,16 +56,20 @@ const ScrollGrid = ({ data }: { data: ProductCardProps[] }) => {
       >
         {products.map((a, i) => (
           <SwiperSlide key={i}>
-            <ProductCard
-              title={a.title}
-              imageUrl={a.imageUrl}
-              rating={a.rating}
-              price={a.price}
-              discountPrice={a.discountPrice}
-              isDiscount={a.isDiscount}
-              onAddToCart={() => console.log("added to cart")}
-              onAddToFavorite={() => console.log("added to favorite")}
-            />
+            <Link
+              href={targetUrl+a.id}>
+              <ProductCard
+                id={a.id}
+                title={a.title}
+                images={a.images}
+                rating={a.rating}
+                price={a.price}
+                discountPrice={a.discountPrice}
+                isDiscount={a.isDiscount}
+                onAddToCart={() => console.log("added to cart")}
+                onAddToFavorite={() => console.log("added to favorite")}
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

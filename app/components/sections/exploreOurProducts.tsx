@@ -3,6 +3,7 @@ import ProductGrid from '../ProductGrid'
 import { Button } from '@/ui/button'
 import { products } from '../../../database/Products'
 import { ProductCardProps } from '@/types/type'
+import Link from 'next/link'
 
 const ExploreOurProducts = () => {
 
@@ -11,13 +12,13 @@ const ExploreOurProducts = () => {
             <SectionCard
                 title='Explore Our Products'
                 category='Our Products'
-                element={<><Button className={"hidden sm:block mr-12"} size={"sm"}>View All</Button></>}
+                element={<><Link href="/product"><Button size={'default'}>View All</Button></Link></>}
             >
                 <ProductGrid
                     products={products.reverse().slice(1,13)}
                 />
             </SectionCard>
-            <Button className={"sm:hidden mx-auto"} size={"default"}>View All</Button>
+            <Link href="/product"><Button size={'default'}>View All</Button></Link>
         </div>
     )
 }

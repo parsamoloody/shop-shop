@@ -1,14 +1,8 @@
 import { Suspense } from "react";
-import Header from "../components/Header";
-import "../globals.css"
-import Footer from "../components/Footer";
+import Header from "@/components//Header";
+import "@/globalCss"
+import Footer from "@/components/Footer";
 import SpaceLine from "@/ui/spaceLine";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: 'Sho Shop',
-  description: 'find your dram',
-};
 
 export default function RootLayout({
   children,

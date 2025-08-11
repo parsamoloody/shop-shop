@@ -3,6 +3,7 @@ import SectionCard from '@/ui/SectionCard'
 import ScrollGrid from '../ScrollGrid'
 import { Button } from '@/ui/button'
 import { products } from '../../../database/Products'
+import Link from 'next/link'
 
 const NewProducts = () => {
     return (
@@ -15,7 +16,8 @@ const NewProducts = () => {
                     <ScrollGrid data={products} />
                 </SectionCard>
             </div>
-            <Button size={'default'}>View All Products</Button>
+            
+            <Link href="/product"><Button size={'default'}>View All Products</Button></Link>
         </section>
     )
 }

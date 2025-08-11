@@ -3,6 +3,7 @@ import SectionCard from '@/ui/SectionCard'
 import ProductGrid from '../ProductGrid'
 import { Button } from '@/ui/button'
 import { products } from '../../../database/Products'
+import Link from 'next/link'
 
 const BestSellingProduct = () => {
     return (
@@ -10,13 +11,13 @@ const BestSellingProduct = () => {
             <SectionCard
                 title='Best Selling Products'
                 category='This Month'
-                element={<><Button className={"hidden sm:block mr-12"} size={"sm"}>View All</Button></>}
+                element={<><Link href="/product"><Button size={'default'}>View All Products</Button></Link></>}
             >
                 <ProductGrid
                 products={products.slice(3,9).reverse()}
                  />
             </SectionCard>
-            <Button className={"sm:hidden mr-12 mx-auto"} size={"default"}>View All</Button>
+            <Link href="/product"><Button size={'default'}>View All Products</Button></Link>
         </div>
     )
 }

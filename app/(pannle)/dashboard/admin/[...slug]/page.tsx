@@ -3,7 +3,6 @@ import Loading from './loading'
 import NewArticle from './addArticle'
 import { notFound } from 'next/navigation'
 import Users from './UserManual'
-import ProductForm from './addProduct'
 
 const SLUGS = {
   ARTICLE: 'new-article',
@@ -32,12 +31,6 @@ const AdminPanel = async ({
       return (
         <Suspense fallback={<Loading />}>
           <Users />
-        </Suspense>
-      )
-    case SLUGS.ADD_PRODUCT:
-      return (
-        <Suspense fallback={<Loading />}>
-          <ProductForm />
         </Suspense>
       )
 

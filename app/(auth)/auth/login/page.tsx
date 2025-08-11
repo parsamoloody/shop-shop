@@ -30,7 +30,6 @@ export default function LoginPage() {
        router.push("/me");
      }
     } catch (err) {
-      console.error('Login error:', err);
       setMsg('Something went wrong.');
     }
   };

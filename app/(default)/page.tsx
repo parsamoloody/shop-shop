@@ -7,6 +7,7 @@ import SpaceLine from '@/ui/spaceLine'
 import Banner from '../components/sections/Banner'
 import ExploreOurProducts from '../components/sections/exploreOurProducts'
 import GridBanner from '../components/sections/GridBanner'
+import Services from '../components/sections/Services'
 
 const page = () => {
   return (
@@ -20,6 +21,7 @@ const page = () => {
       <Banner />
       <ExploreOurProducts />
       <GridBanner />
+      <Services />
     </div>
   )
 }

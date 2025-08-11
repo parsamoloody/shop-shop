@@ -3,10 +3,10 @@
 import { ProductCardProps, StaticImage } from "@/types/type";
 import Image from "next/image";
 import React, { memo } from "react";
-import { PiHeartStraightLight } from "react-icons/pi";
+import { PiEyeLight, PiHeartStraightLight } from "react-icons/pi";
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  imageUrl,
+  images,
   title,
   rating,
   price,
@@ -14,30 +14,42 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isDiscount = false,
   onAddToCart,
   onAddToFavorite,
-  size=48
+  size=46
 }) => {
 
   return (
-    <div className={`w-${size} group relative overflow-clip`}>
+    <div className={`custom-w-${size} small-size group relative overflow-clip`}>
       {/* Image Container */}
       <div className="relative w-full h-48 overflow-hidden">
         <Image
-          src={imageUrl}
+          src={images[0]}
           alt={title}
           fill
+          loading="lazy"
           sizes="(max-width: 768px) 100vw, 200px"
           className="object-cover transition-transform duration-300 bg-third "
           priority={false}
         />
 
         {/* Favorite Button */}
-        <button
+        <div className="absolute grid grid-cols-1 space-y-2 top-2 right-2 p-1.5">
+          {/* Add to favorite */}
+          <button
           onClick={onAddToFavorite}
-          className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
+          className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
           aria-label="Add to Favorite"
         >
-          <PiHeartStraightLight className="w-4 h-4 text-red-500" />
+          <PiHeartStraightLight className="w-4 h-4 text-black" />
         </button>
+        {/* Quick view */}
+          <button
+          onClick={onAddToFavorite}
+          className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
+          aria-label="Add to Favorite"
+        >
+          <PiEyeLight className="w-4 h-4 text-black" />
+        </button>
+        </div>
 
         {/* Add to Cart Button */}
         <button
@@ -53,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <h3 className="text-sm font-medium dark:text-white truncate">{title}</h3>
         <div className="flex items-center space-x-1 mt-1">
           <span className="text-yellow-500">★</span>
-          <span className="text-xs dark:text-shadow-gray-400 text-gray-600">{rating.toFixed(2)}</span>
+          <span className="text-xs dark:text-shadow-gray-200 text-gray-400">{rating.toFixed(2)}</span>
         </div>
         <div className="mt-1">
           {isDiscount && discountPrice ? (

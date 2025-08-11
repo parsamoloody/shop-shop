@@ -1,12 +1,10 @@
 'use client';
 import { useState } from 'react';
 import AuthForm from '../../../components/AuthForm';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const [msg, setMsg] = useState('');
-  const role = useSearchParams()
   const router = useRouter();
 
   const handleSignup = async (data: { email?: string; name?: string, password?: string }) => {

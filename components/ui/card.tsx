@@ -14,7 +14,7 @@ const cardVariants = cva(
     variants: {
       variant: {
         default:
-          'flex-cols justify-center items-center bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-secondary  hover:bg-secondary',
+          'flex-cols justify-center items-center bg-white border border-gray-300 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-700 dark:hover:bg-secondary  hover:bg-secondary',
         outlined:
           'border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-800',
         filled:

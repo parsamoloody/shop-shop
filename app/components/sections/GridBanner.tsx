@@ -9,12 +9,12 @@ import SectionCard from '@/ui/SectionCard'
 
 const GridBanner = () => {
     return (
-        <div className=' max-w-[1240px] mx-auto mt-22 mg:mt-26'>
+        <div className=' max-w-[1240px] mx-auto mt-22 mg:mt-26 px-4'>
             <SectionCard
             title='New Arrival'
             category='Featured'
             >
-                <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <section className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 gap-4">
             {/* first */}
             <div className="relative w-full h-[400px]">
                 <Image

@@ -26,9 +26,10 @@ type StaticImage = {
     blurDataURL?: string;
 };
 interface ProductCardProps {
-  imageUrl: StaticImage
+   id: string;
+  images: StaticImage[]
   title: string
-  size: number
+  size?: number
   rating: number
   price: number
   discountPrice?: number
@@ -36,6 +37,9 @@ interface ProductCardProps {
   onAddToCart?: () => void
   onAddToFavorite?: () => void
 }
-
-
-export { IProductDocument, StaticImage,ProductCardProps }
+type Category = {
+  id: number
+  name: string
+  icon?: string // optional if you want to add icons later
+}
+export { IProductDocument, StaticImage,ProductCardProps, Category }

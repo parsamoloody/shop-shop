@@ -24,16 +24,34 @@ export const NavComponent = forwardRef<HTMLElement, NavProps>(
   ({ className, linkClass, onClick }, ref) => (
     <>
       <nav ref={ref} className={cn('', className)}>
-        {["Home", "Content", "About", "SignUp"].map((section, i) => (
           <Link
-            key={i}
-            href={`#${section.toLowerCase()}`}
+            href="/"
             className={linkClass}
             onClick={onClick}
           >
-            {section}
+            Home
           </Link>
-        ))}
+          <Link
+            href="/contact-us"
+            className={linkClass}
+            onClick={onClick}
+          >
+            Support
+          </Link>
+          <Link
+            href="/about"
+            className={linkClass}
+            onClick={onClick}
+          >
+            About
+          </Link>
+          <Link
+            href="/auth/create-account"
+            className={linkClass}
+            onClick={onClick}
+          >
+            SignUp
+          </Link>
         <div className='mt-4 lg:hidden md:mt-0 pt-3 w-full md:w-12 md:pt-0'>
           <ShortProfile size={32} className='w-full h-full flex items-center justify-center ' />
         </div>

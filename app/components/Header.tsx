@@ -10,6 +10,7 @@ import { CiSearch } from "react-icons/ci";
 import { Input } from '@/ui/input';
 import { Badge } from '@/ui/badge';
 import { ShortProfile } from '@/ui/shortProfile';
+import Link from 'next/link';
 
 const Header = () => {
   const navRef = useRef<HTMLDivElement>(null);
@@ -32,11 +33,10 @@ const Header = () => {
     };
   }, [nav]);
 
-
   return (
     <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 items-center space-y-3 lg:space-y-0 lg:h-28 h-30 md:h-36 max-w-[1240px] mx-auto px-4 dark:bg-background text-white py-4">
       <div className='flex justify-between items-center w-full'>
-        <h1 className="w-full text-3xl font-bold text-foreground dark:text-foreground uppercase">Exclusive.</h1>
+        <Link href="/" className="w-full text-3xl font-bold text-foreground dark:text-foreground uppercase">Exclusive.</Link>
 
         <Navbar className="hidden md:flex md:items-center space-x-7 mr-4 text-foreground" />
 

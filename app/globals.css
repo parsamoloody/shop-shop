@@ -5,13 +5,14 @@
   --foreground: #171717;
   --secondary: #DB4444;
   --third: #F5F5F5;
+  --spacing: .25rem;
 }
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
 }
 
 @theme inline {
@@ -44,4 +45,20 @@ body {
 .removeTransition {
   transform: translateX(-190px);
   transition: transform 0.5s ease-in-out;
+}
+
+.custom-w-40 {
+  width: calc(var(--spacing) * 40) !important
+}
+.custom-w-42 {
+  width: calc(var(--spacing) * 42)  !important
+}
+.custom-w-44 {
+  width: calc(var(--spacing) * 44)  !important
+}
+.custom-w-46 {
+  width: calc(var(--spacing) * 46)  !important
+}
+.custom-w-48 {
+  width: calc(var(--spacing) * 48)  !important
 }
