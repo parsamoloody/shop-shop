@@ -5,7 +5,7 @@ import React from 'react'
 
 const Suggests = () => {
     return (
-        <div className='max-w-screen mx-auto px-4 mt-14'>
+        <div className='max-w-[1240px] mx-auto px-4 mt-14'>
             <SectionCard
                 title=''
                 category='For you'

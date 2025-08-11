@@ -13,22 +13,24 @@ const ProductGrid = ({ products }: { products: ProductCardProps[] }) => {
   const addToFavorite = () => console.log("Added to favorite")
   const addToCart = () => console.log("Added to cart")
 
-  useEffect(() => {
-    if (width <= 400) {
-      setSize(40)
-    } else if (width >= 380 && width < 1240) {
-      setSize(46)
-    } else {
-      setSize(46)
-    }
-  }, [width])
+useEffect(() => {
+  const setFromWidth = (w: number) => {
+    if (w <= 400) setSize(40)
+    else if (w >= 380 && w < 1240) setSize(46)
+    else setSize(46)
+  }
 
-  // ✅ Only run in browser
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setDomain(window.location.origin)
-    }
-  }, [])
+  // First run
+  if (typeof window !== "undefined") {
+    setFromWidth(window.innerWidth)
+  }
+
+  // Listen to resize
+  const handleResize = () => setFromWidth(window.innerWidth)
+  window.addEventListener("resize", handleResize)
+  return () => window.removeEventListener("resize", handleResize)
+}, [])
+
 
   return (
     <div className="grid max-w-screen-xl sm:gap-2 mx-auto grid-cols-[repeat(auto-fit,minmax(162px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(190px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(172px,1fr))]">

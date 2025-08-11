@@ -33,6 +33,7 @@ interface ProductCardProps {
   rating: number
   price: number
   discountPrice?: number
+  tailwindSize?: string
   isDiscount?: boolean
   onAddToCart?: () => void
   onAddToFavorite?: () => void

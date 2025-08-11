@@ -14,11 +14,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isDiscount = false,
   onAddToCart,
   onAddToFavorite,
-  size=46
+  size=46,
+  tailwindSize=""
 }) => {
 
   return (
-    <div className={`custom-w-${size} small-size group relative overflow-clip`}>
+    <div className={`custom-w-${size} w-${tailwindSize} small-size group relative overflow-clip`}>
       {/* Image Container */}
       <div className="relative w-full h-48 overflow-hidden">
         <Image
