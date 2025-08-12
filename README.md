@@ -1,1 +1,1 @@
- [Live priview]([https://nextjs.org](https://shop-shop-q1ey.vercel.app/))
+ [Live priview](https://shop-shop-q1ey.vercel.app/)
