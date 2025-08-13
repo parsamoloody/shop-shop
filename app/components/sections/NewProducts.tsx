@@ -13,7 +13,7 @@ const NewProducts = () => {
                     title='Flash Sales'
                     category='Today,s'
                 >
-                    <ScrollGrid data={products} />
+                    <ScrollGrid data={products.filter(a => a.isDiscount)} />
                 </SectionCard>
             </div>
             

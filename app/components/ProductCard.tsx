@@ -4,7 +4,7 @@ import { ProductCardProps, StaticImage } from "@/types/type";
 import Image from "next/image";
 import React, { memo } from "react";
 import { PiEyeLight, PiHeartStraightLight } from "react-icons/pi";
-
+import { PiStarFill } from "react-icons/pi";
 const ProductCard: React.FC<ProductCardProps> = ({
   images,
   title,
@@ -14,8 +14,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isDiscount = false,
   onAddToCart,
   onAddToFavorite,
-  size=46,
-  tailwindSize=""
+  size = 46,
+  tailwindSize = ""
 }) => {
 
   return (
@@ -36,20 +36,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="absolute grid grid-cols-1 space-y-2 top-2 right-2 p-1.5">
           {/* Add to favorite */}
           <button
-          onClick={onAddToFavorite}
-          className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
-          aria-label="Add to Favorite"
-        >
-          <PiHeartStraightLight className="w-4 h-4 text-black" />
-        </button>
-        {/* Quick view */}
+            onClick={onAddToFavorite}
+            className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
+            aria-label="Add to Favorite"
+          >
+            <PiHeartStraightLight className="w-4 h-4 text-black" />
+          </button>
+          {/* Quick view */}
           <button
-          onClick={onAddToFavorite}
-          className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
-          aria-label="Add to Favorite"
-        >
-          <PiEyeLight className="w-4 h-4 text-black" />
-        </button>
+            onClick={onAddToFavorite}
+            className="p-1.5 bg-white rounded-full shadow hover:bg-gray-100 transition"
+            aria-label="Add to Favorite"
+          >
+            <PiEyeLight className="w-4 h-4 text-black" />
+          </button>
         </div>
 
         {/* Add to Cart Button */}
@@ -62,11 +62,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-2 w-full overflow-hidden"> 
+      <div className="p-2 w-full overflow-hidden">
         <h3 className="text-sm font-medium dark:text-white truncate">{title}</h3>
         <div className="flex items-center space-x-1 mt-1">
-          <span className="text-yellow-500">★</span>
-          <span className="text-xs dark:text-shadow-gray-200 text-gray-400">{rating.toFixed(2)}</span>
+          {
+            [...Array(5)].map((_, i) => (
+              <PiStarFill key={i} className={`w-3 h-3 ${i < rating ? 'text-yellow-500' : 'text-gray-300'}`} />
+            ))
+          }
         </div>
         <div className="mt-1">
           {isDiscount && discountPrice ? (
