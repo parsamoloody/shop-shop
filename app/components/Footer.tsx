@@ -33,11 +33,11 @@ const Footer = () => {
         <div className=''>
           <h4 className="text-lg font-bold mb-3">Account</h4>
           <ul className="space-y-1 text-sm">
-            <li>My Account</li>
-            <li>Login / Register</li>
-            <li>Cart</li>
-            <li>Wishlist</li>
-            <li>Shop</li>
+            <li><Link href="/me" className="hover:text-primary transition-colors">My Account</Link></li>
+            <li><Link href="/auth/login" className="hover:text-primary transition-colors">Login / Register</Link></li>
+            {/* <li><Link href="/cart" className="hover:text-primary transition-colors">Cart</Link></li> */}
+            {/* <li><Link href="/wishlist" className="hover:text-primary transition-colors">Wishlist</Link></li> */}
+            <li><Link href="/product" className="hover:text-primary transition-colors">Shop</Link></li>
           </ul>
         </div>
 
@@ -45,10 +45,10 @@ const Footer = () => {
         <div className=''>
           <h4 className="text-lg font-bold mb-3">Quick Link</h4>
           <ul className="space-y-1 text-sm">
-            <li>Privacy Policy</li>
-            <li>Terms Of Use</li>
-            <li>FAQ</li>
-            <li>Contact</li>
+            <li><Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/terms-of-use" className="hover:text-primary transition-colors">Terms Of Use</Link></li>
+            <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
+            <li><Link href="/contact-us" className="hover:text-primary transition-colors">Contact</Link></li>
           </ul>
         </div>
 
