@@ -12,13 +12,13 @@ const ExploreOurProducts = () => {
             <SectionCard
                 title='Explore Our Products'
                 category='Our Products'
-                element={<><Link href="/product"><Button size={'default'}>View All</Button></Link></>}
+                element={<><Link href="/product" className='hidden md:block'><Button size={'default'}>View All</Button></Link></>}
             >
                 <ProductGrid
                     products={products.reverse().slice(1,13)}
                 />
             </SectionCard>
-            <Link href="/product"><Button size={'default'}>View All</Button></Link>
+            <Link className='md:hidden' href="/product"><Button size={'default'}>View All</Button></Link>
         </div>
     )
 }

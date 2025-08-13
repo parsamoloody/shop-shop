@@ -8,7 +8,7 @@ const Suggests = () => {
         <div className='max-w-[1240px] mx-auto px-4 mt-14'>
             <SectionCard
                 title=''
-                category='For you'
+                category='Related Item'
             >
                 <ScrollGrid data={products} />
             </SectionCard>

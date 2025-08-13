@@ -28,7 +28,7 @@ const categories = [
     },
     {
         id: 4,
-        name: "HeadPhons",
+        name: "HeadPhones",
         icon: <PiHeadphonesThin className='mx-auto group-hover:text-gray-200' size={52} />
     },
     {

@@ -5,7 +5,9 @@ import Image, { StaticImageData } from "next/image"
 import { notFound } from "next/navigation"
 import { Button } from "@/ui/button"
 import { products } from "@/data/Products"
-import { ProductCardProps } from "@/types/type"
+import { PiHeartThin, PiStarFill } from "react-icons/pi";
+import SpaceLine from "@/ui/spaceLine"
+
 
 // Product type
 type Product = {
@@ -31,6 +33,7 @@ export async function getProduct(id: string): Promise<Product> {
 export default function ProductDetailPage({ id }: { id: string }) {
   const [product, setProduct] = useState<Product | null>(null)
   const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(null)
+  const [quantity, setQuantity] = useState<number>(1)
 
   // Load product on mount
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
     <div className="max-w-screen-xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Left: Main Image */}
       <div>
-        <div className="relative w-full h-96 overflow-hidden rounded-lg shadow-md">
+        <div className="relative w-full h-96 overflow-hidden rounded-lg">
           <Image
             src={selectedImage}
             alt={product.title}
@@ -78,8 +81,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
 
         {/* Rating */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-yellow-500">★</span>
-          <span className="font-medium dark:text-gray-300">{product.rating.toFixed(2)}</span>
+          {[...Array(5)].map((_, i) => (
+            <PiStarFill key={i} className={`w-5 h-5 ${i < product.rating ? 'text-yellow-500' : 'text-gray-300'}`} />
+          ))}
         </div>
 
         {/* Price */}
@@ -90,7 +94,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
               <span className="line-through text-gray-400">${product.price}</span>
             </>
           ) : (
-            <span className="text-3xl font-bold">${product.price}</span>
+            <span className="text-3xl font-bold dark:text-foreground">${product.price}</span>
           )}
         </div>
 
@@ -98,11 +102,33 @@ export default function ProductDetailPage({ id }: { id: string }) {
         <p className="text-gray-600 dark:text-gray-300 mb-6">
           Experience unparalleled comfort and design with the S-Series Comfort Chair — perfect for work and relaxation.
         </p>
+        <hr className="text-gray-500 mb-5" />
+
 
         {/* Buttons */}
         <div className="flex flex-wrap gap-4">
-          <Button>Add to cart</Button>
-          <Button className="bg-gray-500">Add to Wishlist</Button>
+          {/* Quantity Selector */}
+          <Button className="rounded">Add to cart</Button>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center">
+              <button
+                className="w-10 h-10 flex items-center justify-center border rounded-l-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
+                onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+              >
+                -
+              </button>
+              <span className="w-12 h-10 flex items-center justify-center border-y border-gray-300 dark:border-gray-700 dark:text-foreground">
+                {quantity}
+              </span>
+              <button
+                className="w-10 h-10 flex items-center justify-center border rounded-r-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
+                onClick={() => setQuantity(prev => prev + 1)}
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <Button variant="outline" className="p-0 w-12 rounded border-[1.5px] text-lg"><PiHeartThin /></Button>
         </div>
       </div>
     </div>
