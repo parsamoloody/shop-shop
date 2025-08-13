@@ -5,11 +5,10 @@ import Image, { StaticImageData } from "next/image"
 import { notFound } from "next/navigation"
 import { Button } from "@/ui/button"
 import { products } from "@/data/Products"
-import { PiHeartThin, PiStarFill } from "react-icons/pi";
-import SpaceLine from "@/ui/spaceLine"
+import { PiCarProfile, PiHeartThin, PiStarFill } from "react-icons/pi";
+import { HiArrowPath } from "react-icons/hi2"
 
 
-// Product type
 type Product = {
   id: string
   images: StaticImageData[]
@@ -20,7 +19,11 @@ type Product = {
   isDiscount: boolean
 }
 
-// Mock fetch function
+type ColorOption = {
+  name: string;
+  value: string;
+}
+
 export async function getProduct(id: string): Promise<Product> {
   const data = products.find((a) => a.id === id)
 
@@ -30,10 +33,17 @@ export async function getProduct(id: string): Promise<Product> {
 
   return data
 }
+
+const colorOptions: ColorOption[] = [
+  { name: 'sky', value: '#E07575' },
+  { name: 'red', value: '#A0BCE0' }
+]
+
 export default function ProductDetailPage({ id }: { id: string }) {
   const [product, setProduct] = useState<Product | null>(null)
   const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(null)
   const [quantity, setQuantity] = useState<number>(1)
+  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0].value)
 
   // Load product on mount
   useEffect(() => {
@@ -57,19 +67,24 @@ export default function ProductDetailPage({ id }: { id: string }) {
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, 400px"
+            placeholder="blur"
           />
         </div>
 
         {/* Thumbnails */}
-        <div className="flex gap-4 mt-4 overflow-x-auto">
+        <div className="flex gap-4 mt-4 p-2 overflow-x-auto">
           {product.images.map((img, idx) => (
             <div
               key={idx}
-              className={`relative w-20 h-20 overflow-hidden border cursor-pointer transition rounded-md ${selectedImage === img ? "ring-2 ring-blue-500" : ""
+              className={`relative w-20 h-20 overflow-hidden cursor-pointer transition rounded-md ${selectedImage === img ? "ring-1 ring-gray-400" : ""
                 }`}
               onClick={() => setSelectedImage(img)}
             >
-              <Image src={img} alt={`Thumbnail ${idx}`} fill className="object-cover" />
+              <Image
+                placeholder="blur"
+                sizes="(max-width: 640px) 100vw, 100vw"
+                src={img} alt={`Thumbnail ${idx}`} fill className="object-cover" />
             </div>
           ))}
         </div>
@@ -84,6 +99,8 @@ export default function ProductDetailPage({ id }: { id: string }) {
           {[...Array(5)].map((_, i) => (
             <PiStarFill key={i} className={`w-5 h-5 ${i < product.rating ? 'text-yellow-500' : 'text-gray-300'}`} />
           ))}
+          <span className="border-l border-gray-300 mx-2 h-6">  </span>
+          <span className="text-[#00FF66]">In Stock</span>
         </div>
 
         {/* Price */}
@@ -104,6 +121,27 @@ export default function ProductDetailPage({ id }: { id: string }) {
         </p>
         <hr className="text-gray-500 mb-5" />
 
+        {/* Color Options */}
+        <div className="mb-6 flex items-center">
+          <span className="text-lg mr-3 font-medium dark:text-foreground mb-2 block">
+            Colors:
+          </span>
+          <div className="flex gap-3">
+            {colorOptions.map((color, index) => (
+              <button
+                key={index}
+                className={`w-5 h-5 rounded-full border-2 cursor-pointer transition-colors ${selectedColor === color.value
+                  ? 'border-primary ring-1 ring-primary ring-offset-2'
+                  : 'border-gray-300 hover:border-primary'
+                  }`}
+                style={{ backgroundColor: color.value }}
+                title={color.name}
+                aria-label={`Select ${color.name} color`}
+                onClick={() => setSelectedColor(color.value)}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Buttons */}
         <div className="flex flex-wrap gap-4">
@@ -112,7 +150,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
           <div className="flex items-center gap-4 mb-6">
             <div className="flex items-center">
               <button
-                className="w-10 h-10 flex items-center justify-center border rounded-l-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
+                className="w-10 h-10 flex items-center justify-center border cursor-pointer rounded-l-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
                 onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
               >
                 -
@@ -121,14 +159,31 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 {quantity}
               </span>
               <button
-                className="w-10 h-10 flex items-center justify-center border rounded-r-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
-                onClick={() => setQuantity(prev => prev + 1)}
+                className="w-10 h-10 flex items-center justify-center border cursor-pointer rounded-r-sm border-gray-300 dark:border-gray-700 hover:bg-secondary dark:text-foreground transition-colors"
+                onClick={() => setQuantity(prev => Math.min(10, prev + 1))}
               >
                 +
               </button>
             </div>
           </div>
           <Button variant="outline" className="p-0 w-12 rounded border-[1.5px] text-lg"><PiHeartThin /></Button>
+        </div>
+        {/* Service explain */}
+        <div className="border dark:text-slate-300 mt-2 md:mt-0 lg:w-[370px] w-[330px] rounded">
+          <div className="flex items-center p-2 space-x-5 border-b">
+            <PiCarProfile size={40} />
+            <div className="space-y-2">
+              <p>Free Delivery</p>
+              <p className="text-[12px] dark:text-gray-400 text-gray-700">Enter your postal code for Delivery Availability</p>
+            </div>
+          </div>
+          <div className="flex items-center p-2 space-x-5">
+            <HiArrowPath size={40} />
+            <div className="space-y-2">
+              <p>Return Delivery</p>
+              <p className="text-[12px] dark:text-gray-400 text-gray-700">Free 30 Days Delivery Returns. Details</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

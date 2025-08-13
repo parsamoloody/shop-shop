@@ -23,6 +23,8 @@ const GridBanner = () => {
                     fill
                     className="object-cover object-center"
                     sizes="(max-width: 640px) 100vw, 100vw"
+                    placeholder='blur'
+                    loading="lazy"
                 />
 
                 {/* Text Overlay */}
@@ -47,6 +49,8 @@ const GridBanner = () => {
                         fill
                         className="object-cover object-center"
                         sizes="(max-width: 640px) 100vw, 100vw"
+                        placeholder='blur'
+                        loading="lazy"
                     />
 
                     {/* Text Overlay */}
@@ -70,6 +74,8 @@ const GridBanner = () => {
                         fill
                         className="object-cover object-center"
                         sizes="(max-width: 640px) 100vw, 100vw"
+                        placeholder='blur'
+                        loading="lazy"
                     />
 
                     {/* Text Overlay */}
@@ -91,6 +97,8 @@ const GridBanner = () => {
                         fill
                         className="object-cover object-center"
                         sizes="(max-width: 640px) 100vw, 100vw"
+                        placeholder='blur'
+                        loading="lazy"
                     />
 
                     {/* Text Overlay */}

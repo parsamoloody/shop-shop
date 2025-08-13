@@ -57,7 +57,7 @@ const Header = () => {
         <SmallScreensNavbar
           ref={navRef}
           className={cn(
-            'top-0 h-full w-[215px] border-r border-r-gray-900 dark:bg-[#000300] bg-gray-300 text-black fixed ease-in-out duration-500 z-50 md:hidden',
+            'top-0 h-full w-[215px] border-r border-r-gray-900 dark:bg-[#000300] bg-gray-100 text-black fixed ease-in-out duration-500 z-50 md:hidden',
             nav ? 'left-0' : 'left-[-100%]'
           )}
           linkClass=" text-gray-800 px-4 py-2 hover:bg-gray-800 border-b dark:border-b dark:border-slate-500 dark:text-white"

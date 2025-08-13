@@ -26,7 +26,7 @@ const shortProfileVariants = cva(
 export interface ShortProfileProps
   extends React.HTMLAttributes<HTMLDivElement>,
   VariantProps<typeof shortProfileVariants> {
-  size?: number; // make it optional
+  size?: number;
 }
 
 type User = {
@@ -45,7 +45,6 @@ const ShortProfile = React.memo(function ShortProfile({
 
   const [data, setData] = React.useState<User | null>(null)
   const router = useRouter()
-  console.log(data)
 
   React.useEffect(() => {
     const fetchUser = async () => {
@@ -56,7 +55,8 @@ const ShortProfile = React.memo(function ShortProfile({
         })
 
         if (!response.ok) {
-          throw new Error('["/me"] Error on response data')
+          // throw new Error('["/me"] Error on response data')
+          return
         }
         const userData = await response.json()
         setData(userData.user)
@@ -68,7 +68,6 @@ const ShortProfile = React.memo(function ShortProfile({
     fetchUser()
   }, [router])
 
-  // Logout and reload page
   const handleLogout = async () => {
     try {
       await fetch('http://localhost:3000/api/me?action=delete', {
@@ -82,7 +81,6 @@ const ShortProfile = React.memo(function ShortProfile({
   }
 
   return (
-    // data && (
       <Link
       href={data? "/me" : "/auth/login"}
       
@@ -96,7 +94,7 @@ const ShortProfile = React.memo(function ShortProfile({
           className="rounded-full object-cover"
           priority
         />
-        <span className="w-full ml-4 md:hidden">{data?.name || "Login"}</span>
+        <span className="w-full ml-4 text-gray-800 md:hidden">{data?.name || "Login"}</span>
         {data && (
           <button
           onClick={handleLogout}
@@ -107,7 +105,6 @@ const ShortProfile = React.memo(function ShortProfile({
         </button>
         )}
       </Link>
-      // Adding a drop down, for easy to access
     )
   // );
 });

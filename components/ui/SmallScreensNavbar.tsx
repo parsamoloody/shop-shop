@@ -15,7 +15,7 @@ const SmallScreensNavbar = forwardRef<HTMLDivElement, SmallScreensNavbarProps>(
         ref={ref}
         className={cn('w-[215px]', className)}
       >
-        <h1 className="w-[190px] text-3xl font-bold text-[#00df9a] m-4 uppercase">Exclusive.</h1>
+        <h1 className="w-[190px] text-3xl font-bold text-secondary m-4 uppercase">Exclusive.</h1>
         <Navbar
           linkClass={linkClass ?? 'p-4 border-b border-slate-400'}
           className="flex flex-col uppercase p-4"

@@ -16,10 +16,8 @@ function StyledSwiper(): JSX.Element {
     }, []);
 
     const handleSwiperInit = useCallback((swiper: any) => {
-        console.log(swiper);
     }, []);
 
-    // Array of slide data (you can replace with your actual images)
     const slides = [
         { id: 1, image: slide1, alt: 'Image 1' },
         { id: 2, image: slide1, alt: 'Image 2' },
