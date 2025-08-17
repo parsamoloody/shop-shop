@@ -73,21 +73,22 @@ export default function ProductDetailPage({ id }: { id: string }) {
         </div>
 
         {/* Thumbnails */}
-        <div className="mt-4 w-full overflow-x-auto no-scrollbar whitespace-nowrap">
-          <div className="flex gap-4 p-2 w-max snap-x">
+        <div className="mt-4 w-full overflow-x-auto sm:overflow-x-clip sm:flex sm:flex-wrap  no-scrollbar whitespace-nowrap">
+          <div className="flex sm:flex-wrap gap-4 p-2 w-max snap-x">
             {product.images.map((img, idx) => (
               <div
                 key={idx}
-                className={`relative flex-shrink-0 w-20 h-20 overflow-hidden border bg-white border-white rounded-md cursor-pointer transition snap-start ${selectedImage === img ? "ring-2 ring-gray-400" : ""
+                className={`relative flex-shrink-0 justify-center items-center w-20 h-20 overflow-hidden border bg-white border-white rounded-md cursor-pointer transition snap-start ${selectedImage === img ? "ring-2 ring-gray-400" : ""
                   }`}
                 onClick={() => setSelectedImage(img)}
               >
                 <Image
                   src={img}
                   alt={`Thumbnail ${idx}`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 100vw"
-                  className="object-cover"
+                  width={65}
+                  height={65}
+                  // sizes="(max-width: 640px) 100vw, 100vw"
+                  className="object-cover w-full h-full"
                 />
               </div>
             ))}
@@ -150,9 +151,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-wrap gap-4">
+        <div className=" w-auto flex flex-wrap gap-4">
           {/* Quantity Selector */}
-          <Button className="rounded">Add to cart</Button>
+          <Button className="rounded w-full col-span-2">Add to cart</Button>
           <div className="flex items-center gap-4 mb-6">
             <div className="flex items-center">
               <button
