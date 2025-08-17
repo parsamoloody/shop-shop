@@ -94,7 +94,7 @@ const ShortProfile = React.memo(function ShortProfile({
           className="rounded-full object-cover"
           priority
         />
-        <span className="w-full ml-4 text-gray-800 md:hidden">{data?.name || "Login"}</span>
+        <span className="w-full ml-4 text-gray-800 dark:text-gray-400 md:hidden">{data?.name || "Login"}</span>
         {data && (
           <button
           onClick={handleLogout}
