@@ -50,15 +50,32 @@ body {
 .custom-w-40 {
   width: calc(var(--spacing) * 40) !important
 }
+
 .custom-w-42 {
-  width: calc(var(--spacing) * 42)  !important
+  width: calc(var(--spacing) * 42) !important
 }
+
 .custom-w-44 {
-  width: calc(var(--spacing) * 44)  !important
+  width: calc(var(--spacing) * 44) !important
 }
+
 .custom-w-46 {
-  width: calc(var(--spacing) * 46)  !important
+  width: calc(var(--spacing) * 46) !important
 }
+
 .custom-w-48 {
-  width: calc(var(--spacing) * 48)  !important
+  width: calc(var(--spacing) * 48) !important
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: auto;
+  /* Firefox */
 }

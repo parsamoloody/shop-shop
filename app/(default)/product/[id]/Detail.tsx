@@ -59,13 +59,13 @@ export default function ProductDetailPage({ id }: { id: string }) {
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Left: Main Image */}
-      <div>
-        <div className="relative w-full h-96 overflow-hidden rounded-lg">
+      <div className="overflow-hidden">
+        <div className="relative w-full h-96  overflow-hidden rounded-lg">
           <Image
             src={selectedImage}
             alt={product.title}
-            fill
-            className="object-cover"
+            // fill
+            className="w-auto mx-auto h-96 bg-third overflow-visible"
             priority
             sizes="(max-width: 768px) 100vw, 400px"
             placeholder="blur"
@@ -73,21 +73,27 @@ export default function ProductDetailPage({ id }: { id: string }) {
         </div>
 
         {/* Thumbnails */}
-        <div className="flex gap-4 mt-4 p-2 overflow-x-auto">
-          {product.images.map((img, idx) => (
-            <div
-              key={idx}
-              className={`relative w-20 h-20 overflow-hidden cursor-pointer transition rounded-md ${selectedImage === img ? "ring-1 ring-gray-400" : ""
-                }`}
-              onClick={() => setSelectedImage(img)}
-            >
-              <Image
-                placeholder="blur"
-                sizes="(max-width: 640px) 100vw, 100vw"
-                src={img} alt={`Thumbnail ${idx}`} fill className="object-cover" />
-            </div>
-          ))}
+        <div className="mt-4 w-full overflow-x-auto no-scrollbar whitespace-nowrap">
+          <div className="flex gap-4 p-2 w-max snap-x">
+            {product.images.map((img, idx) => (
+              <div
+                key={idx}
+                className={`relative flex-shrink-0 w-20 h-20 overflow-hidden border border-white rounded-md cursor-pointer transition snap-start ${selectedImage === img ? "ring-2 ring-gray-400" : ""
+                  }`}
+                onClick={() => setSelectedImage(img)}
+              >
+                <Image
+                  src={img}
+                  alt={`Thumbnail ${idx}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
 
       {/* Right: Info */}

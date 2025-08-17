@@ -41,6 +41,12 @@ interface ProductCardProps {
 type Category = {
   id: number
   name: string
-  icon?: string // optional if you want to add icons later
+  icon?: string
 }
-export { IProductDocument, StaticImage,ProductCardProps, Category }
+type MainCategory = {
+  id: number
+  name: string
+  icon?: string
+  image?: StaticImage
+}
+export { IProductDocument,MainCategory, StaticImage,ProductCardProps, Category }

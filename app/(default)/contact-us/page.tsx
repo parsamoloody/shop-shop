@@ -34,7 +34,8 @@ export const metadata: Metadata = {
 
 const ContactPage = () => {
   return (
-    <div className="container mx-auto max-w-[1240px] px-4 py-8">
+    <div className="container mx-auto max-w-[1240px] px-4 py-8 mt-12">
+      <h2 className='dark:text-foreground text-background text-3xl mb-10'>Help Center</h2>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left Side - Contact Info */}
         <div className="lg:w-1/3 space-y-6">

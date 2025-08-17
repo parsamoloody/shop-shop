@@ -15,7 +15,7 @@ interface Admin {
   name: string;
   title: string;
   description: string;
-  image: any; 
+  image: any;
   socials: Social;
 }
 
@@ -62,10 +62,12 @@ const Admins = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminData.map((admin, index) => (
             <div key={index} className="p-4 transition-all duration-300">
-              <Image 
-                src={admin.image} 
-                alt={admin.name} 
-                className="w-full h-auto mb-4" 
+              <Image
+                src={admin.image}
+                alt={admin.name}
+                className="w-full h-auto mb-4"
+                placeholder='blur'
+                loading='lazy'
               />
               <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                 {admin.name}
@@ -77,7 +79,7 @@ const Admins = () => {
                 {admin.description}
               </p>
               <div className="flex space-x-4">
-                <a 
+                <a
                   href={admin.socials.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -85,7 +87,7 @@ const Admins = () => {
                 >
                   <FaTwitter size={20} />
                 </a>
-                <a 
+                <a
                   href={admin.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -93,7 +95,7 @@ const Admins = () => {
                 >
                   <FaInstagram size={20} />
                 </a>
-                <a 
+                <a
                   href={admin.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"

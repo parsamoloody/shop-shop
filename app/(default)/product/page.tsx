@@ -1,8 +1,6 @@
 import React from 'react'
 import SectionCard from '@/ui/SectionCard'
-import { Button } from '@/ui/button'
 import { products } from '../../../database/Products'
-import { ProductCardProps } from '@/types/type'
 import ProductGrid from '@/components/ProductGrid'
 const page = () => {
     return (

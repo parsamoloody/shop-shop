@@ -21,14 +21,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className={`custom-w-${size} w-${tailwindSize} small-size group relative overflow-clip`}>
       {/* Image Container */}
-      <div className="relative w-full h-48 overflow-hidden">
+      <div className="relative w-full bg-third h-48 overflow-hidden">
         <Image
           src={images[0]}
           alt={title}
           fill
           loading="lazy"
           sizes="(max-width: 768px) 100vw, 200px"
-          className="object-cover transition-transform duration-300 bg-third "
+          className="object-cover transition-transform scale-65 overflow-visible duration-300 bg-third "
           priority={false}
         />
 

@@ -1,14 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
-import tWomens from '@/images/about-ereeresfad33.jpg'
+import tWomens from '@/images/ccffsgagwaaccffasdg.jpg'
 
 const Story = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <div className="flex-1 space-y-4">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-foreground">
-                        Our Story
+                    <h1 className="text-4xl font-bold text-white dark:text-foreground">
+                        EXPERIENCE EXCITING GATHERINGS IN YOUR REGION
                     </h1>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
                         Launched in 2015, Exclusive is South Asia’s

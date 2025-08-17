@@ -53,7 +53,7 @@ const CategorySection = () => {
                                 className='relative flex justify-center dm:justify-between'>
                                 <Link
                                     href={{
-                                        pathname: "category/"+a.name.toLocaleLowerCase(),
+                                        pathname: "subcategory/"+a.name.toLocaleLowerCase(),
                                     }}>
                                     <Card
                                         size={"default"}
