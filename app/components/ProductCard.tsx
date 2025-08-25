@@ -84,7 +84,7 @@ const ProductCard: React.FC<IProductDocument> = ({
           sizes="(max-width: 768px) 100vw, 200px"
           className="object-cover transition-transform scale-65 overflow-visible duration-300 bg-third "
           priority={false}
-        />
+        /> 
 
         {/* Favorite Button */}
         <div className="absolute grid grid-cols-1 space-y-2 top-2 right-2 p-1.5">
