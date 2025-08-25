@@ -1,3 +1,4 @@
+'use client'
 import { cn } from '@/lib/utilities/ctx';
 import React from 'react'
 

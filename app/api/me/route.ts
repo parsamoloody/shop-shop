@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
-const API_URL = "http://localhost:4000/api/auth/";
+const API_URL = `http://localhost:4000/api/auth/`;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
