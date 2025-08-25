@@ -24,14 +24,15 @@ export default function UsersPage() {
     setError(null)
 
     try {
-      const res = await fetch('http://localhost:4000/api/user/get-all')
+      const res = await fetch(`http://localhost:4000/api/user/get-all`)
 
       if (!res.ok) {
         throw new Error(`Error ${res.status}: ${res.statusText}`)
       }
 
       const data = await res.json()
-      setUsers(data.users || [])
+      setUsers(data.data || [])
+      console.log(data)
     } catch (err: any) {
       console.error('Failed to fetch users:', err)
       setError('Failed to load users. Please try again.')
@@ -67,7 +68,7 @@ export default function UsersPage() {
 
   return (
     <>
-      <div className="p-6 max-w-xl mx-auto">
+      <div className="p-6 max-w-xl mx-auto h-full">
         <h1 className="text-2xl font-bold mb-4">User List</h1>
 
         {error && (

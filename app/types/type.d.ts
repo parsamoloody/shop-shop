@@ -1,42 +1,91 @@
+import { StaticImageData } from "next/image";
+// User
+interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: 'user' | 'admin';
+  profilePicture: string;
+  addresses: IAddress[];
+  cart: ICartItem[];
+  orderHistory: IOrderSummary[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  resetToken?: String;
+  resetTokenExpire?: Number;
+}
+
+interface IAddress {
+  fullName: string;
+  street: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone?: string;
+}
+
+interface IWish {
+  _id: string;
+  cart: ICartItem[];
+  orderHistory: IOrderSummary[];
+}
+interface IOrderSummary {
+  orderId: string;
+  total: number;
+  status: 'pending' | 'shipped' | 'delivered' | 'cancelled';
+  createdAt: Date;
+}
+
+interface ICartItem {
+  product: string;
+  quantity: number;
+}
+
+// Product
 interface IDiscount {
-    amount: number
-    type: 'fixed' | 'percent';
-    expiresAt?: string
+  amount: number
+  type: 'fixed' | 'percent';
+  expiresAt?: string
 }
 interface IPrice {
-    original: number;
-    discount: IDiscount;
-    currency: "USD" | "IRR"
+  original: number;
+  discount: IDiscount;
+  currency: "USD" | "IRR"
 }
 interface IProductDocument {
-    product_id: string;
-    category: string[];
-    name: string;
-    description: string;
-    price: IPrice;
-    createdBy: string,
-    editedBy?: string,
-    createdAt: Date;
-    updatedAt: Date;
+  product_id: string;
+  category: string[];
+  name: string;
+  description: string;
+  price: IPrice;
+  createdBy: string,
+  editedBy?: string,
+  createdAt: Date;
+  updatedAt: Date;
 }
 type StaticImage = {
-    src: string;
-    height: number;
-    width: number;
-    blurDataURL?: string;
+  src: string;
+  height: number;
+  width: number;
+  blurDataURL?: string;
 };
 interface ProductCardProps {
-   id: string;
-  images: StaticImage[]
-  title: string
-  size?: number
-  rating: number
-  price: number
-  discountPrice?: number
-  tailwindSize?: string
-  isDiscount?: boolean
-  onAddToCart?: () => void
-  onAddToFavorite?: () => void
+  _id: string;
+  category: string[];
+  subCategory: string[];
+  name: string;
+  description: string;
+  price: IPrice;
+  images: StaticImageData[];
+  // createdBy: string;
+  // editedBy: string;
+  // createdAt: Date;
+  // updatedAt: Date;
+  size?: number;
+  rating: number;
+  tailwindSize?: string;
+  onAddToCart?: () => void;
+  onAddToFavorite?: () => void;
 }
 type Category = {
   id: number
@@ -49,4 +98,4 @@ type MainCategory = {
   icon?: string
   image?: StaticImage
 }
-export { IProductDocument,MainCategory, StaticImage,ProductCardProps, Category }
+export { IProductDocument, MainCategory, IWish, StaticImage, ProductCardProps, Category, IUser, IOrderSummary, IAddress, ICartItem }
