@@ -56,12 +56,16 @@ interface IProductDocument {
   product_id: string;
   category: string[];
   name: string;
+  images: string[],
   description: string;
   price: IPrice;
   createdBy: string,
   editedBy?: string,
   createdAt: Date;
   updatedAt: Date;
+}
+interface IProductDocumentResponse extends IProductDocument {
+  _id: string;
 }
 type StaticImage = {
   src: string;
@@ -98,4 +102,4 @@ type MainCategory = {
   icon?: string
   image?: StaticImage
 }
-export { IProductDocument, MainCategory, IWish, StaticImage, ProductCardProps, Category, IUser, IOrderSummary, IAddress, ICartItem }
+export { IProductDocument,IProductDocumentResponse, MainCategory, IWish, StaticImage, ProductCardProps, Category, IUser, IOrderSummary, IAddress, ICartItem }

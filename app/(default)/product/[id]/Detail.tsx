@@ -82,8 +82,8 @@ export default function ProductDetailPage({ id }: { id: string }) {
   const [addingToCart, setAddingToCart] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [inCart, setInCart] = useState<boolean>(false);
-  console.log('added to cart:', addedToCart);
-  console.log("in cart:", inCart);
+const fallbackImgSrc = "EJLFNOw.webp";
+
   const handleAddToCart = useHandleAddToCart();
   const { data: isInCart, isSuccess } = useWishList();
 const router = useRouter()
@@ -92,7 +92,7 @@ const router = useRouter()
     try {
       const p = await getProduct(id);
       setProduct(p);
-      setSelectedImage(p.images[0]);
+      setSelectedImage(p.images[0] || fallbackImgSrc);
     } catch (error) {
       console.error('Error fetching product:', error);
       notFound();
@@ -111,7 +111,6 @@ const router = useRouter()
       if (isExist) {
         setInCart(true);
       }
-      console.log('Item is in cart:', isInCart.data?.cart[0].product);
     }
   }, [isSuccess, isInCart]);
 
@@ -129,7 +128,6 @@ const router = useRouter()
   };
 
   if (!product || !selectedImage) return null;
-
   const discountPrice =
     product.price.discount.type === 'percent'
       ? product.price.original * (1 - product.price.discount.amount / 100)

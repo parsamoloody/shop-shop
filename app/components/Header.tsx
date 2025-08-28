@@ -65,10 +65,12 @@ const Header = () => {
 
         <div className="cursor-pointer flex space-x-4">
           {/* Cart (mobile) */}
-          <div className="relative lg:hidden">
+          <Link
+          href={cartCount ? "/checkout/cart" : "/auth/login"}
+           className="relative lg:hidden">
             <Badge variant="onValue">{isLoading ? 0 : cartCount}</Badge>
             <PiShoppingCartLight className="text-[#171717] dark:text-[#ededed]" size={24} />
-          </div>
+          </Link>
           {/* Burger menu */}
           {nav ? (
             <AiOutlineClose className="text-[#171717] dark:text-[#ededed] md:hidden" size={24} onClick={toggleNav} />
@@ -101,10 +103,12 @@ const Header = () => {
           <PiHeartStraightLight className="text-[#171717] dark:text-[#ededed]" size={24} />
         </div>
         {/* Cart (desktop) */}
-        <div className="relative hidden lg:block">
+        <Link
+        href={cartCount ? "/checkout/cart" : "/auth/login"}
+         className="relative hidden lg:block">
           <Badge variant="onValue">{isLoading ? 0 : cartCount}</Badge>
           <PiShoppingCartLight className="text-[#171717] dark:text-[#ededed]" size={24} />
-        </div>
+        </Link>
         {/* Profile */}
         <div className="mt-4 lg:block hidden md:mt-0 pt-3 w-full md:w-12 md:pt-0">
           <ShortProfile
