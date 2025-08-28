@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react"
 import Image, { StaticImageData } from "next/image"
-import { notFound } from "next/navigation"
+import { notFound, useRouter } from "next/navigation"
 // import { Button } from "@/ui/button"
 // import { products } from "@/data/Products"
 import { PiCarProfile, PiHeartThin, PiStarFill } from "react-icons/pi";
@@ -82,10 +82,11 @@ export default function ProductDetailPage({ id }: { id: string }) {
   const [addingToCart, setAddingToCart] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [inCart, setInCart] = useState<boolean>(false);
-
+  console.log('added to cart:', addedToCart);
+  console.log("in cart:", inCart);
   const handleAddToCart = useHandleAddToCart();
   const { data: isInCart, isSuccess } = useWishList();
-
+const router = useRouter()
   // Memoize getProduct to avoid unnecessary re-renders
   const fetchProduct = useCallback(async () => {
     try {
@@ -106,20 +107,21 @@ export default function ProductDetailPage({ id }: { id: string }) {
   // Handle wishlist state
   useEffect(() => {
     if (isSuccess && isInCart) {
-      setInCart(true);
+      const isExist = isInCart.data?.cart.some((item: any) => item.product === id);
+      if (isExist) {
+        setInCart(true);
+      }
+      console.log('Item is in cart:', isInCart.data?.cart[0].product);
     }
   }, [isSuccess, isInCart]);
 
   const addItem = async (productId: string, quantity: number) => {
-    if (inCart) return;
-    setAddingToCart(true);
     try {
       const res = await handleAddToCart(productId, quantity);
-      console.log('Add to cart response:', res);
-      setTimeout(() => {
-        setAddedToCart(true);
-        setAddingToCart(false);
-      }, 2300);
+      if (res.auth === false) {
+        router.push('/auth/login');
+      }
+      res.inCart ? setAddedToCart(true) : setAddingToCart(true)
     } catch (error) {
       console.error('Error adding to cart:', error);
       setAddingToCart(false);
@@ -246,7 +248,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
               {...(addingToCart && { loading: true })}
               disabled={addedToCart || addingToCart || inCart}
             >
-              {addedToCart ? (
+              {addedToCart || inCart ? (
                 'In your cart'
               ) : addingToCart ? (
                 <CircularProgress
