@@ -1,74 +1,150 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import Image, { StaticImageData } from "next/image"
-import { notFound } from "next/navigation"
-import { Button } from "@/ui/button"
-import { products } from "@/data/Products"
+import { notFound, useRouter } from "next/navigation"
+// import { Button } from "@/ui/button"
+// import { products } from "@/data/Products"
 import { PiCarProfile, PiHeartThin, PiStarFill } from "react-icons/pi";
 import { HiArrowPath } from "react-icons/hi2"
-
-
-type Product = {
-  id: string
-  images: StaticImageData[]
-  title: string
-  rating: number
-  price: number
-  discountPrice: number
-  isDiscount: boolean
-}
-
-type ColorOption = {
+import { ProductCardProps } from "@/types/type"
+import { useWishList } from "../../../hooks/user/userOrder"
+import useHandleAddToCart from "../../../hooks/handleAddToCart"
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+interface ColorOption {
   name: string;
   value: string;
 }
 
-export async function getProduct(id: string): Promise<Product> {
-  const data = products.find((a) => a.id === id)
-
-  if (!data) {
-    notFound()
-  }
-
-  return data
+interface Price {
+  original: number;
+  discount: { type: 'percent' | 'fixed'; amount: number };
 }
 
+
+// Move theme creation outside the component
+const theme = createTheme({
+  palette: {
+    primary: { main: '#00FF66' },
+    secondary: { main: '#FF4081' },
+    background: { default: '#DB4444', paper: '#DB4444' },
+    text: { primary: '#ffffff', secondary: '#ffffff' },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#DB4444',
+          color: '#ffffff',
+          '&:hover': { backgroundColor: '#DB4444' },
+        },
+      },
+    },
+  },
+});
+
+const CustomButton = styled(Button)({
+  borderRadius: '4px',
+  width: '100%',
+  gridColumn: 'span 2',
+  padding: '8px',
+});
+
+// Use environment variable for API base URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
+// Fix color options to match names and values
 const colorOptions: ColorOption[] = [
-  { name: 'sky', value: '#E07575' },
-  { name: 'red', value: '#A0BCE0' }
-]
+  { name: 'sky', value: '#87CEEB' }, // Sky blue
+  { name: 'red', value: '#FF0000' }, // Red
+];
+
+export async function getProduct(id: string): Promise<ProductCardProps> {
+  const response = await fetch(`${API_BASE_URL}/api/product/get-all`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch product: ${response.status}`);
+  }
+  const data = await response.json();
+  const product = data.data?.find((a: ProductCardProps) => a._id === id);
+  if (!product) {
+    notFound();
+  }
+  return product;
+}
 
 export default function ProductDetailPage({ id }: { id: string }) {
-  const [product, setProduct] = useState<Product | null>(null)
-  const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(null)
-  const [quantity, setQuantity] = useState<number>(1)
-  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0].value)
+  const [product, setProduct] = useState<ProductCardProps | null>(null);
+  const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0].value);
+  const [addingToCart, setAddingToCart] = useState<boolean>(false);
+  const [addedToCart, setAddedToCart] = useState<boolean>(false);
+  const [inCart, setInCart] = useState<boolean>(false);
+const fallbackImgSrc = "EJLFNOw.webp";
+
+  const handleAddToCart = useHandleAddToCart();
+  const { data: isInCart, isSuccess } = useWishList();
+const router = useRouter()
+  // Memoize getProduct to avoid unnecessary re-renders
+  const fetchProduct = useCallback(async () => {
+    try {
+      const p = await getProduct(id);
+      setProduct(p);
+      setSelectedImage(p.images[0] || fallbackImgSrc);
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      notFound();
+    }
+  }, [id]);
 
   // Load product on mount
   useEffect(() => {
-    getProduct(id).then((p) => {
-      if (!p) return notFound()
-      setProduct(p)
-      setSelectedImage(p.images[0])
-    })
-  }, [id])
+    fetchProduct();
+  }, [fetchProduct]);
 
-  if (!product || !selectedImage) return null
+  // Handle wishlist state
+  useEffect(() => {
+    if (isSuccess && isInCart) {
+      const isExist = isInCart.data?.cart.some((item: any) => item.product === id);
+      if (isExist) {
+        setInCart(true);
+      }
+    }
+  }, [isSuccess, isInCart]);
 
+  const addItem = async (productId: string, quantity: number) => {
+    try {
+      const res = await handleAddToCart(productId, quantity);
+      if (res.auth === false) {
+        router.push('/auth/login');
+      }
+      res.inCart ? setAddedToCart(true) : setAddingToCart(true)
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      setAddingToCart(false);
+    }
+  };
+
+  if (!product || !selectedImage) return null;
+  const discountPrice =
+    product.price.discount.type === 'percent'
+      ? product.price.original * (1 - product.price.discount.amount / 100)
+      : product.price.original - product.price.discount.amount;
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Left: Main Image */}
       <div className="overflow-hidden">
         <div className="relative w-full h-96 bg-third overflow-hidden rounded-lg">
           <Image
-            src={selectedImage}
-            alt={product.title}
+            src={`/assets/uploads/products/${selectedImage}`}
+            alt={product.name}
             fill
             className="object-cover scale-65 bg-third overflow-visible"
             priority
             sizes="(max-width: 768px) 100vw, 400px"
-            placeholder="blur"
+          // placeholder="blur"
           />
         </div>
 
@@ -83,7 +159,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 onClick={() => setSelectedImage(img)}
               >
                 <Image
-                  src={img}
+                  src={`/assets/uploads/products/${img}`}
                   alt={`Thumbnail ${idx}`}
                   width={65}
                   height={65}
@@ -99,7 +175,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
 
       {/* Right: Info */}
       <div className="flex flex-col justify-center">
-        <h1 className="text-2xl font-semibold dark:text-foreground mb-2">{product.title}</h1>
+        <h1 className="text-2xl font-semibold dark:text-foreground mb-2">{product.name}</h1>
 
         {/* Rating */}
         <div className="flex items-center gap-2 mb-4">
@@ -112,13 +188,13 @@ export default function ProductDetailPage({ id }: { id: string }) {
 
         {/* Price */}
         <div className="mb-4">
-          {product.isDiscount ? (
+          {discountPrice ? (
             <>
-              <span className="text-3xl font-bold text-red-600 mr-3">${product.discountPrice}</span>
-              <span className="line-through text-gray-400">${product.price}</span>
+              <span className="text-3xl font-bold text-red-600 mr-3">${discountPrice}</span>
+              <span className="line-through text-gray-400">${product.price.original}</span>
             </>
           ) : (
-            <span className="text-3xl font-bold dark:text-foreground">${product.price}</span>
+            <span className="text-3xl font-bold dark:text-foreground">${product.price.original}</span>
           )}
         </div>
 
@@ -153,7 +229,35 @@ export default function ProductDetailPage({ id }: { id: string }) {
         {/* Buttons */}
         <div className=" w-auto flex flex-wrap gap-4">
           {/* Quantity Selector */}
-          <Button className="rounded w-full col-span-2">Add to cart</Button>
+          {/* <Button className="rounded w-full col-span-2"
+            onClick={() => addItem(product._id, quantity)}
+          >
+            {addedToCart ? (
+          'In your cart'
+        ) : addingToCart ? (
+          
+        ) : (
+          'Add to cart'
+        )}
+          </Button> */}
+          <ThemeProvider theme={theme}>
+            <CustomButton
+              onClick={() => addItem(product._id, quantity)}
+              {...(addingToCart && { loading: true })}
+              disabled={addedToCart || addingToCart || inCart}
+            >
+              {addedToCart || inCart ? (
+                'In your cart'
+              ) : addingToCart ? (
+                <CircularProgress
+                  size={24}
+                  sx={{ color: "#ffffff" }}
+                />
+              ) : (
+                'Add to cart'
+              )}
+            </CustomButton>
+          </ThemeProvider>
           <div className="flex items-center gap-4 mb-6">
             <div className="flex items-center">
               <button
@@ -173,7 +277,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
               </button>
             </div>
           </div>
-          <Button variant="outline" className="p-0 w-12 rounded border-[1.5px] text-lg"><PiHeartThin /></Button>
+          {/* <Button className="p-0 w-12 rounded border-[1.5px] text-lg"><PiHeartThin /></Button> */}
         </div>
         {/* Service explain */}
         <div className="border dark:text-slate-300 mt-2 md:mt-0 lg:w-[370px] w-[330px] rounded">

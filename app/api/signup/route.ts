@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 
-const API_URL = 'http://localhost:4000/api/auth/signup'
+const API_URL = `http://localhost:4000/api/auth/signup`
 
 export async function POST(req: NextRequest) {
   const body = await req.json()

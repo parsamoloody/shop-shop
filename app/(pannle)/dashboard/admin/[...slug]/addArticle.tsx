@@ -16,7 +16,7 @@ export default function NewArticle() {
         try {
             const secretKey = process.env.NEXT_PUBLIC_API_SECRET
             if (!secretKey) throw new Error("NEXT_PUBLIC_API_SECRET not defined in environment variable")
-            const res = await fetch(`http://localhost:4000/post`, {
+            const res = await fetch(`http://localhost:4000/api/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
-  const protectedPaths = ['/dashboard/admin', '/me']
+  const protectedPaths = ['/dashboard/admin', '/me', '/checkout']
   const isProtected = protectedPaths.some(path => pathname.startsWith(path))
 
   if (!isProtected) {
